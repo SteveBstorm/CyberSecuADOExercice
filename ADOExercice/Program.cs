@@ -1,6 +1,7 @@
 ﻿using ADOExercice;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 
 string connectionString = @"Data Source=STEVEBSTORM\MSSQLSERVER01;Initial Catalog=CyberSecuExoADO;Integrated Security=True;";
 
@@ -97,3 +98,44 @@ string connectionString = @"Data Source=STEVEBSTORM\MSSQLSERVER01;Initial Catalo
 //    }
 //} 
 #endregion
+
+
+//using(SqlConnection conn = new SqlConnection(connectionString))
+//{
+//    using(SqlCommand cmd = conn.CreateCommand())
+//    {
+//        cmd.CommandText = "UpdateStudent";
+//        cmd.CommandType = CommandType.StoredProcedure;
+
+//        cmd.Parameters.AddWithValue("studentId", 26);
+//        cmd.Parameters.AddWithValue("sectionId", 1320);
+//        cmd.Parameters.AddWithValue("yearResult", 20);
+
+//        conn.Open();
+//        cmd.ExecuteNonQuery();
+//        conn.Close();
+//    }
+//}
+
+for(int i = 1; i < 10; i++)
+{
+    supprimer(i);
+}
+
+void supprimer(int id) {
+    using (SqlConnection conn = new SqlConnection(connectionString))
+    {
+        using (SqlCommand cmd = conn.CreateCommand())
+        {
+            cmd.CommandText = "DeleteStudent";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("Id", id);
+
+
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+    }
+}
